@@ -9,22 +9,66 @@ import {
 } from '../controllers/booking.controllers';
 const router = Router();
 
-//Obtener todas las reservas
+/**
+ * @swagger
+ *
+ * tags:
+ *  name: Bookings
+ *  description: bookings endpoint
+ */
+
+/**
+ * @swagger
+ * /bookings:
+ *  get:
+ *    summary: Get all Bookings
+ *    tags: [Bookings]
+ */
 router.get('/bookings', getBookings);
 
-//Obtener la cantidad de reservas
+/**
+ * @swagger
+ * /bookings/count:
+ *  get:
+ *    summary: get total bookings counter
+ *    tags: [Bookings]
+ */
 router.get('/bookings/count', getBookingsCount);
 
-//Obtener una reserva específica según su id
+/**
+ * @swagger
+ * /bookings/{id}:
+ *  get:
+ *    summary: Get booking by Id
+ *    tags: [Bookings]
+ */
 router.get('/bookings/:id', getBooking);
 
-//insertar una nueva reserva
+/**
+ * @swagger
+ * /bookings:
+ *  post:
+ *    summary: save a new booking
+ *    tags: [Bookings]
+ */
 router.post('/bookings', saveBooking);
 
-//borrar una nueva tarea
+/**
+ * @swagger
+ * /bookings/{id}:
+ *  delete:
+ *    summary: delete a booking by Id
+ *    tags: [Bookings]
+ */
 router.delete('/bookings/:id', deleteBooking);
 
-//actualizar una tarea según su id
+/**
+ * @swagger
+ * /bookings/{id}:
+ *  put:
+ *    summary: update a booking by Id
+ *    tags: [Bookings]
+ */
 router.put('/bookings/:id', updateBooking);
 
 export default router;
