@@ -1,0 +1,6 @@
+@api=http://localhost:3000/bookings
+
+### Obtener reservas 
+GET {{api}}
+
+### Obtener una única reserva
