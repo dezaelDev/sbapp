@@ -1,6 +1,8 @@
+import { config as dotenv } from 'dotenv';
+dotenv();
 export const config = {
-	host: '217.21.77.51',
-	user: 'u753579138_sbapp',
-	password: 'Sbapp1234',
-	database: 'u753579138_sbapp',
+	host: process.env.DB_HOST || 'localhost',
+	user: process.env.DB_USER || 'admin',
+	password: process.env.DB_PASSWORD || 'admin',
+	database: process.env.DB_DATABASE || 'database',
 };
