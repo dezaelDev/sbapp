@@ -1,4 +1,4 @@
-@api=http://localhost:3000/bookings
+@api=http://localhost:4000/bookings
 
 ### Obtener reservas 
 GET {{api}}
@@ -13,8 +13,9 @@ GET {{api}}/count
 DELETE {{api}}/11
 
 ### actualizar reservas
-PUT {{api}}/10
+PUT {{api}}/9
 Content-Type: application/json 
+
 {
-"name": "prueba de nodeJs"
+"name": "prueba de node",
 }
