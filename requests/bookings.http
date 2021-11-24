@@ -4,3 +4,17 @@
 GET {{api}}
 
 ### Obtener una única reserva
+GET {{api}}/1
+
+### Obtener cantidad de reservas
+GET {{api}}/count
+
+### eliminar reservas
+DELETE {{api}}/11
+
+### actualizar reservas
+PUT {{api}}/10
+Content-Type: application/json 
+{
+"name": "prueba de nodeJs"
+}
