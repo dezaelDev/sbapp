@@ -28,6 +28,21 @@ export const getBooking = async (req, res) => {
 	}
 };
 
+export const getBookingByUser = async (req, res) => {
+	try {
+		const connection = await connect();
+
+		const [row] = await connection.query(
+			`SELECT * FROM ReservedWork WHERE username_ClientUser=?`,
+			[req.params.username]
+		);
+		res.json(row[0]);
+	} catch (error) {
+		console.error(error);
+		res.sendStatus(400);
+	}
+};
+
 //obtener la cantidad de reservas
 export const getBookingsCount = async (req, res) => {
 	try {
@@ -44,7 +59,35 @@ export const getBookingsCount = async (req, res) => {
 
 //guardar una reserva POST request
 export const saveBooking = async (req, res) => {
-	res.send('Hello world');
+	try {
+		const connection = await connect();
+		const [results] = await connection.query(
+			`INSERT INTO ReservedWork(date,name, gender,age,job,comment,username_WorkerUser,username_ClientUser,paymentType,amount,state) VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
+			[
+				req.body.date,
+				req.body.name,
+				req.body.gender,
+				req.body.age,
+				req.body.job,
+				req.body.comment,
+				'worker',
+				req.body.username_ClientUser,
+				req.body.paymentType,
+				req.body.amount,
+				req.body.state,
+			]
+		);
+
+		const booking = {
+			id: results.insertId,
+			...req.body,
+		};
+
+		res.json(booking);
+	} catch (error) {
+		console.error(error);
+		res.sendStatus(400);
+	}
 };
 
 //borrar una reserva DELETE request
