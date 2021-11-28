@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
 	deleteBooking,
 	getBooking,
+	getBookingByUser,
 	getBookings,
 	getBookingsCount,
 	saveBooking,
@@ -43,6 +44,15 @@ router.get('/bookings/count', getBookingsCount);
  *    tags: [Bookings]
  */
 router.get('/bookings/:id', getBooking);
+
+/**
+ * @swagger
+ * /bookings/{username}:
+ *  get:
+ *    summary: Get booking by username of the client
+ *    tags: [Bookings]
+ */
+router.get('/bookings/:username', getBookingByUser);
 
 /**
  * @swagger
