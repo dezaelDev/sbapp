@@ -28,6 +28,21 @@ export const getClient = async (req, res) => {
 	}
 };
 
+export const getClientByEmail = async (req, res) => {
+	try {
+		const connection = await connect();
+
+		const [row] = await connection.query(
+			`SELECT * FROM ${tableName} WHERE email=?`,
+			[req.params.email]
+		);
+		res.json(row[0]);
+	} catch (error) {
+		console.error(error);
+		res.sendStatus(400);
+	}
+};
+
 //obtener la cantidad de clientes
 export const getClientsCount = async (req, res) => {
 	try {
@@ -43,12 +58,42 @@ export const getClientsCount = async (req, res) => {
 };
 
 //guardar un cliente  POST request
-export const saveBooking = async (req, res) => {
-	res.send('Hello world');
+export const saveClient = async (req, res) => {
+	try {
+		const username = req.body.name + '-' + req.body.dni;
+		const creationDate = new Date().toISOString();
+		const connection = await connect();
+		const [results] = await connection.query(
+			`INSERT INTO ${tableName}(username,email,telephone,dateOfBirth, creationDate, name,lastName,dni, gender) VALUES (?,?,?,?,?,?,?,?,?)`,
+			[
+				username,
+				req.body.email,
+				req.body.telephone,
+				req.body.dateOfBirth,
+				creationDate,
+				req.body.name,
+				req.body.lastName,
+				req.body.dni,
+				req.body.gender,
+			]
+		);
+
+		const newUser = {
+			id: results.insertId,
+			username: username,
+			creationDate: creationDate,
+			...req.body,
+		};
+
+		res.json(newUser);
+	} catch (error) {
+		console.error(error);
+		res.sendStatus(400);
+	}
 };
 
 //borrar un cliente DELETE request
-export const deleteBooking = async (req, res) => {
+export const deleteClient = async (req, res) => {
 	try {
 		const connection = await connect();
 		const result = await connection.query(
